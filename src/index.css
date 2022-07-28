@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Default Color Palette */
+:root {
+	--theme-1: #151515;
+	--theme-2: #2c2c2c;
+	--theme-3: #339989;
+	--theme-4: #7de2d1;
+	/*--theme-3: #717171;*/
+	/*--theme-4: #bababa;*/
+	--theme-5: #ffffff;
+	
+	--theme-err: #fc0000;
+	
+	--p1-d: #993232;
+	--p1-l: #e37d7d;
+	--p2-d: #325199;
+	--p2-l: #7d9be3;
+	--p3-d: #6e9932;
+	--p3-l: #b8e37d;
+	--p4-d: #99328d;
+	--p4-l: #e37dd7;
+	--p5-d: #329988;
+	--p5-l: #7de3d2;
+	--p6-d: #996932;
+	--p6-l: #e3b37d;
+	--p7-d: #4c3299;
+	--p7-l: #967de3;
+	--p8-d: #389932;
+	--p8-l: #82e37d;
+}
+
+/* Size specifications */
+:root {
+	--header-height: 4em;
+	--controls-height: 4em;
+	--scoreboard-width: 30vw;
+}
+
+/* Player colors */
+body.p1:not(.nocol) { --theme-3: var(--p1-d); --theme-4: var(--p1-l); }
+body.p2:not(.nocol) { --theme-3: var(--p2-d); --theme-4: var(--p2-l); }
+body.p3:not(.nocol) { --theme-3: var(--p3-d); --theme-4: var(--p3-l); }
+body.p4:not(.nocol) { --theme-3: var(--p4-d); --theme-4: var(--p4-l); }
+body.p5:not(.nocol) { --theme-3: var(--p5-d); --theme-4: var(--p5-l); }
+body.p6:not(.nocol) { --theme-3: var(--p6-d); --theme-4: var(--p6-l); }
+body.p7:not(.nocol) { --theme-3: var(--p7-d); --theme-4: var(--p7-l); }
+body.p8:not(.nocol) { --theme-3: var(--p8-d); --theme-4: var(--p8-l); }
+/*body.nocol { --theme-3: #339989; --theme-4: #7de2d1; }*/
+
+.p1:not(body):not(body.nocol *):not(body.nocol * *) { background-color: var(--p1-d); }
+.p2:not(body):not(body.nocol *):not(body.nocol * *) { background-color: var(--p2-d); }
+.p3:not(body):not(body.nocol *):not(body.nocol * *) { background-color: var(--p3-d); }
+.p4:not(body):not(body.nocol *):not(body.nocol * *) { background-color: var(--p4-d); }
+.p5:not(body):not(body.nocol *):not(body.nocol * *) { background-color: var(--p5-d); }
+.p6:not(body):not(body.nocol *):not(body.nocol * *) { background-color: var(--p6-d); }
+.p7:not(body):not(body.nocol *):not(body.nocol * *) { background-color: var(--p7-d); }
+.p8:not(body):not(body.nocol *):not(body.nocol * *) { background-color: var(--p8-d); }
+
+body {
+	font-family: "Poppins", sans-serif;
+	margin: 0;
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--theme-1);
+	color: var(--theme-5);
+}
+
+fieldset {
+	border-radius: 0.5em;
+	background-color: var(--theme-2);
+	border-color: var(--theme-5);
+	margin-bottom: 1em;
+}
+fieldset > p:first-of-type{
+	margin-top: 0.5em;
+}
+fieldset > p:last-of-type{
+	margin-bottom: 0.5em;
+}
+legend {
+	background-color: var(--theme-3);
+	padding: 0.2em 0.4em;
+	border-radius: 0.25em;
+	font-weight: bold;
+}
+
+input {
+	font-family: inherit;
+}
+button, input[type=submit] {
+	background-color: var(--theme-3);
+	color: var(--theme-5);
+	border: 2px groove var(--theme-5);
+	border-radius: 0.5em;
+	font-size: inherit;
+	padding: 0.25em 0.5em;
+	width: 100%;
+	cursor: pointer;
+	font-weight: bold;
+	user-select: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+button:disabled {
+	filter: grayscale(1);
+	cursor: not-allowed;
+}
+
+table {
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+th, td {
+	padding: 0.25em 0.5em;
+}
+thead th {
+	text-decoration: underline;
+	background-color: var(--theme-3);
+}
+tbody th {
+	background-color: var(--theme-4);
+}
+th.active, td.active {
+	background-color: var(--theme-4) !important;
+}
+td.beat {
+	background-color: var(--theme-3);
+}
+
+#particles {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.roundtable {
+	border: 2px groove var(--theme-5);
+	border-radius: 0.5em;
+	display: inline-block;
+	overflow: hidden;
+}
+
+#game {
+	display: grid;
+	width: 100%;
+	height: 100vh;
+	align-items: stretch;
+	justify-content: center;
+	grid-template-columns: calc(100% - var(--scoreboard-width) - 1em) var(--scoreboard-width);
+	grid-template-rows: var(--header-height) calc(100% - var(--header-height) - var(--controls-height) - 1em) var(--controls-height);
+	gap: 0.5em;
+	padding: 0.5em;
+	box-sizing: border-box;
+}
+#game > * {
+	border: 2px groove var(--theme-5);
+	border-radius: 0.5em;
+	text-align: center;
+	background-color: var(--theme-2);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#header {
+	grid-row: 1;
+	grid-column: 1;
+	font-size: 1.5rem;
+	background-color: var(--theme-3);
+}
+
+#board {
+	grid-row: 2;
+	grid-column: 1;
+	display: grid;
+	align-items: start;
+	justify-content: start;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+#controls {
+	grid-row: 3;
+	grid-column: 1;
+	align-items: stretch;
+	gap: 0.5em;
+	padding: 0.5em;
+	box-sizing: border-box;
+}
+#controls * {
+	width: 100%;
+	font-size: 1.5rem;
+	border-radius: 0.25em;
+}
+
+#scoreboard {
+	grid-row: 1 / 4;
+	grid-column: 2;
+	align-items: flex-start;
+	justify-content: flex-start;
+	overflow: auto;
+}
+#scoreboard table {
+	white-space: nowrap;
+	min-width: 100%;
+}
+
+@media screen and (orientation: portrait) {
+	#game {
+		grid-template-columns: 100%;
+		grid-template-rows: var(--header-height) calc(50% - var(--header-height) - 1em) var(--controls-height) calc(50% - var(--controls-height) - 1em);
+	}
+	body.safari {
+		min-height: 85vh;
+	}
+	body.safari #game {
+		height: 85vh;
+	}
+	#scoreboard {
+		grid-row: 4;
+		grid-column: 1;
+	}
+}
+
+.die {
+	/*position: relative;*/
+	border: 2px solid var(--theme-1);
+	background-color: var(--theme-5);
+	color: var(--theme-1);
+	grid-row: 1;
+	grid-column: 1;
+	transition: filter 0.4s ease-in-out;
+	cursor: grab;
+}
+.die:hover {
+	box-shadow: 0px 0px 10px #fff6;
+}
+.die.held {
+	filter: brightness(0.65);
+	cursor: grabbing;
+}
+.die.permaheld {
+	filter: brightness(0.25);
+	cursor: not-allowed;
+}
+.die.rolling:not(.permaheld) {
+	transition: transform 0.75s ease-out;
+}
+
+#order {
+	text-align: center;
+}
+
+#pastlist button {
+	display: inline-flex;
+	width: revert;
+}
+#pastscoreboard {
+	min-width: 100%;
+	text-align: center;
+}
+
+@keyframes button-no {
+	from {background-color: var(--theme-err);}
+	to   {background-color: var(--theme-3);}
+}

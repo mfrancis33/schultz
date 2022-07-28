@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Schultz</title>
+		<link rel="stylesheet" type="text/css" href="index.css">
+	</head>
+	<body>
+		<noscript>
+			<style>
+				noscript ~ * {
+					display: none;
+				}
+			</style>
+			<p>Please turn on JavaScript in your browser or upgrade to one that supports it.</p>
+		</noscript>
+		<div id="start">
+			<h1>Schultz (Beta v0.3.2)</h1>
+			<p><button id="new">New Game</button></p>
+			<p><button id="continue">Continue Game</button></p>
+			<hr>
+			<!-- <p><button id="h2pbutton" disabled>How to Play</button></p> -->
+			<p><button id="pastbutton">View Past Games</button></p>
+		</div>
+		<div id="pastgames" class="hidden">
+			<h1>Schultz</h1>
+			<div class="roundtable">
+				<table>
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Winner</th>
+							<th>Score</th>
+							<th>Options</th>
+						</tr>
+					</thead>
+					<tbody id="pastlist"></tbody>
+				</table>
+			</div>
+			<hr>
+			<button id="past2home">Back to Home</button>
+		</div>
+		<div id="pastgameview" class="hidden">
+			<h2>Winner: <span id="pastwinner">Nobody</span> with <span id="pastscore">0</span> points</h2>
+			<div class="roundtable" style="display: flex;">
+				<table id="pastscoreboard">
+					<thead>
+						<tr></tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+			<hr>
+			<button id="pastgameback">Back to List</button>
+		</div>
+		<div id="newgame" class="hidden">
+			<h1>Schultz</h1>
+			<p><button id="newgame2home">Back to Home</button></p>
+			<form id="setup">
+				<fieldset>
+					<legend>Score requirements</legend>
+					<p><label>On the board at: <input type="number" min="0" value="600" step="50" placeholder="Score to get on" name="min" required></label></p>
+					<p><label>Winning score at: <input type="number" min="50" value="5000" step="50" placeholder="Score to win" name="max" required></label></p>
+					<p><label><input type="checkbox" name="endgame" checked> Enable end game (one chance to beat winner's score)</label></p>
+				</fieldset>
+				<fieldset>
+					<legend>Player count</legend>
+					<p><label>How many are playing? <select name="pcount" id="pcount" required>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4" selected>4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+					</select></label></p>
+					<!--<p><label>How many are playing? <input type="number" min="2" max="8" step="1" value="4" placeholder="Player count" name="pcount" id="pcount" pattern="\d*" required></label></p>-->
+					<ol id="playercount">
+						<li><input type="text" placeholder="Player 1 name" name="name1" minlength="1" maxlength="32" required></li>
+						<li><input type="text" placeholder="Player 2 name" name="name2" minlength="1" maxlength="32" required></li>
+						<li><input type="text" placeholder="Player 3 name" name="name3" minlength="1" maxlength="32" required></li>
+						<li><input type="text" placeholder="Player 4 name" name="name4" minlength="1" maxlength="32" required></li>
+					</ol>
+				</fieldset>
+				<fieldset>
+					<legend>Miscellaneous settings</legend>
+					<p><label><input type="checkbox" checked name="spread"> Enable random spread of dice</label></p>
+					<p><label><input type="checkbox" checked name="colors"> Enable player colors</label></p>
+					<p><label><input type="checkbox" checked name="confetti"> Enable confetti</label></p>
+				</fieldset>
+				<p><input type="submit" value="Play!"></p>
+			</form>
+		</div>
+		<div id="game" class="hidden">
+			<div id="header">
+				<p style="margin: 0;"><span id="turn">Nobody</span>'s turn | <span id="tempscore">0</span> rolled (<span id="score">0</span> total)</p>
+			</div>
+			<div id="board">
+				<!-- Dice are hidden at start -->
+				<canvas id="d1" class="die hidden" width=100 height=100></canvas>
+				<canvas id="d2" class="die hidden" width=100 height=100></canvas>
+				<canvas id="d3" class="die hidden" width=100 height=100></canvas>
+				<canvas id="d4" class="die hidden" width=100 height=100></canvas>
+				<canvas id="d5" class="die hidden" width=100 height=100></canvas>
+			</div>
+			<div id="controls">
+				<button id="roll">Roll</button>
+				<button id="stay">Stay</button>
+			</div>
+			<div id="scoreboard">
+				<table>
+					<thead>
+						<tr></tr>
+					</thead>
+					<tbody>
+						<tr></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div id="end" class="hidden">
+			<h1>Schultz</h1>
+			<p>The winner is <span id="winner">Nobody</span> with <span id="finalscore">0</span> points!</p>
+			<hr>
+			<h2>Leaderboard:</h2>
+			<div class="roundtable">
+				<table id="order">
+					<thead>
+						<tr>
+							<th>Rank</th>
+							<th>Player</th>
+							<th>Score</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+			<p><button id="again">Play Again</button></p>
+			<p><button id="end2home">Go to Home</button></p>
+			<hr>
+			<p><button id="downloadtxt">Download scoresheet as TXT</button></p>
+			<p><button id="downloadcsv">Download scoresheet as CSV</button></p>
+		</div>
+		<canvas id="particles"></canvas>
+		<script src="schultz.js"></script>
+	</body>
+</html>
