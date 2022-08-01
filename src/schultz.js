@@ -253,7 +253,7 @@
 			alert("No save file!");
 			return;
 		}
-		//Load save file (does all)
+		//Load save file (also does screen transition)
 		loadGame();
 	}
 
@@ -523,6 +523,17 @@
 		//Look for straights
 		//They will always have a 2, 3, 4, and 5; we just need to look for 1 or 6
 		if((nums[1] == 1 || nums[6] == 1) && nums[2] == 1 && nums[3] == 1 && nums[4] == 1 && nums[5] == 1){
+			tempscore += 1000;
+			updateScore();
+			confetti();
+			for(let i = 0; i < 5; i++){
+				dice[i].toggleHold(true, true);
+				dice[i].canHold = false;
+			}
+			return;
+		}
+		//Look for all dice on same number
+		if(nums[1] == 5 || nums[2] == 5 || nums[3] == 5 || nums[4] == 5 || nums[5] == 5 || nums[6] == 5){
 			tempscore += 1000;
 			updateScore();
 			confetti();
@@ -856,6 +867,7 @@
 				for(let j = 0; j < names.length; j++){
 					s += (scoreboard[j][i] || "") + (j !== names.length - 1 ? "," : "");
 				}
+				s += "\n";
 			}
 		} else {
 			return;
