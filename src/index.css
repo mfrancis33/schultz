@@ -222,16 +222,18 @@ td.beat {
 		grid-template-columns: 100%;
 		grid-template-rows: var(--header-height) calc(50% - var(--header-height) - 1em) var(--controls-height) calc(50% - var(--controls-height) - 1em);
 	}
-	body.safari {
-		min-height: 85vh;
-	}
-	body.safari #game {
-		height: 85vh;
-	}
 	#scoreboard {
 		grid-row: 4;
 		grid-column: 1;
 	}
+}
+
+/* iOS Safari has weird height issues involving the address bar so this is how we get around that */
+body.safari {
+	min-height: 85vh;
+}
+body.safari #game {
+	height: 85vh;
 }
 
 .die {

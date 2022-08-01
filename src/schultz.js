@@ -215,6 +215,11 @@
 		document.getElementById("start").classList.remove("hidden");
 	}
 
+	document.getElementById("h2p2home").onclick = () => {
+		document.getElementById("h2p").classList.add("hidden");
+		document.getElementById("start").classList.remove("hidden");
+	}
+
 	document.getElementById("past2home").onclick = () => {
 		document.getElementById("pastgames").classList.add("hidden");
 		document.getElementById("start").classList.remove("hidden");
@@ -252,7 +257,10 @@
 		loadGame();
 	}
 
-	// document.getElementById("h2pbutton").onclick = () => {}
+	document.getElementById("h2pbutton").onclick = () => {
+		document.getElementById("start").classList.add("hidden");
+		document.getElementById("h2p").classList.remove("hidden");
+	}
 
 	document.getElementById("pastbutton").onclick = () => {
 		document.getElementById("start").classList.add("hidden");
