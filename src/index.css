@@ -88,7 +88,7 @@ legend {
 	font-weight: bold;
 }
 
-input {
+button, input, select, option {
 	font-family: inherit;
 }
 button, input[type=submit] {
@@ -109,6 +109,13 @@ button, input[type=submit] {
 button:disabled {
 	filter: grayscale(1);
 	cursor: not-allowed;
+}
+
+a {
+	color: var(--theme-4);
+}
+a:visited {
+	color: var(--theme-3);
 }
 
 table {
@@ -150,6 +157,10 @@ td.beat {
 	border-radius: 0.5em;
 	display: inline-block;
 	overflow: hidden;
+}
+
+#h2p {
+	max-width: 75vw;
 }
 
 #game {

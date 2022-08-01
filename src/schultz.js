@@ -546,6 +546,7 @@
 		//Look for triples
 		if(nums[2] >= 3 || nums[3] >= 3 || nums[4] >= 3 || nums[5] >= 3 || nums[6] >= 3){
 			let num;
+			// FIXME: three ones is 1000 points
 			if(nums[2] >= 3) num = 2;
 			if(nums[3] >= 3) num = 3;
 			if(nums[4] >= 3) num = 4;
