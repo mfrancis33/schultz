@@ -1,6 +1,7 @@
 # v0.3.3
   - Added "How to Play" menu
   - Getting all 5 of the same number in a roll will now count as 1500 points due to user feedback
+    - This may change to 1000 in the future
   - Getting three 1's will now count as 1000 due to user feedback
   - Added change log with changes back to v0.3.0
   - Fixed issues with "Download as CSV"
