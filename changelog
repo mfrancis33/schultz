@@ -1,0 +1,28 @@
+# v0.3.3
+  - Added "How to Play" menu
+  - Getting all 5 of the same number in a roll will now count as 1500 points due to user feedback
+    - This may change to 1000 in the future
+  - Getting three 1's will now count as 1000 due to user feedback
+  - Added change log with changes back to v0.3.0
+  - Fixed issues with "Download as CSV"
+
+# v0.3.2
+  - Added the ability to view the scoresheets of finished games
+    - Games played in v0.3.1 are available to view as well
+  - Added the ability to save scoresheets as CSV files
+  - Added the ability to play games in singleplayer (turning off end game is recommended)
+  - Roll button will now flash red if you cannot roll
+  - Uploaded project to GitHub
+
+# v0.3.1
+  - Fixed many bugs due to lack of testing of v0.3.0
+    - Most issues were the result of not JSON-ifying something before loading it to localStorage,
+      which threw errors when I tried to parse it as JSON again later
+    - These issues prevented the user from playing the game
+
+# v0.3.0
+  - Added home menu
+  - Added the ability to save/load games
+    - This stems from a user feedback issue where
+  - Added the ability to replay games
+  - Added minor CSS changes for iOS Safari due to how it counts viewport height

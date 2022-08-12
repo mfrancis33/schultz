@@ -16,15 +16,73 @@
 			<p>Please turn on JavaScript in your browser or upgrade to one that supports it.</p>
 		</noscript>
 		<div id="start">
-			<h1>Schultz (Beta v0.3.2)</h1>
+			<h1>Schultz (Beta v0.3.3)</h1>
 			<p><button id="new">New Game</button></p>
 			<p><button id="continue">Continue Game</button></p>
 			<hr>
-			<!-- <p><button id="h2pbutton" disabled>How to Play</button></p> -->
+			<p><button id="h2pbutton">How to Play</button></p>
 			<p><button id="pastbutton">View Past Games</button></p>
 		</div>
+		<div id="h2p" class="hidden">
+			<h1>Schultz &ndash; How to Play</h1>
+			<h2>Introduction</h2>
+			<p>Schultz is a high-score gambling dice game where the goal is to be the first player to reach a set maximum score, usually 5,000 or 10,000. The origin of this game extends from my family, and the game is based on <a href="https://en.wikipedia.org/wiki/Farkle">Farkle</a>, also known as Greedy, 10,000, or Zilch. This version's name's origin is unknown.</p>
+			<p>The game is played by two or more players, although in this version it is possible to play solo. It is also possible to set the start and end scoring goals in this version.</p>
+			<hr>
+			<h2>Playing the game</h2>
+			<ul>
+				<li>At the beginning of a player's turn, they must roll the dice.</li>
+				<li>After each roll, one or more dice with score value must be "held".</li>
+				<ul>
+					<li>In this version, all dice are held by default, but you can click to un-hold them.</li>
+					<li>You cannot unhold dice from previous turns.</li>
+				</ul>
+				<li>After a roll, players can decide to "stay" and add their accumulated points to their score or continue rolling the unheld to get more points.</li>
+				<ul>
+					<li>In Schultz, there is a "minimum score" (or threshold value) to get "on the board" (be able to begin scoring). A player cannot keep any points until they accumulate points greater than or equal to the "minimum score". Only then can they stay.</li>
+				</ul>
+				<li>If there are no dice that score in a roll, all accumulated points are lost, the player's score is deducted by 50 points if they are on the board, and the player's turn is over.</li>
+				<ul>
+					<li>This is called "Schultz"</li>
+				</ul>
+				<li>The first person to reach the maximum score wins, although there is an option to have an end game.</li>
+			</ul>
+			<h3>End game rules</h3>
+			<ul>
+				<li>Once a player reaches the maximum score, the end game is enacted if enabled.</li>
+				<li>Each other player gets one chance to reach the winning player's score.</li>
+				<li>Each player cannot stay until they have reached the score.</li>
+				<li>If a player successfully reaches the winning score, the end game repeats until nobody reaches the winning score.</li>
+			</ul>
+			<hr>
+			<h2>Scoring guide</h2>
+			<ul>
+				<li>Each <strong>five</strong> is worth 50 points</li>
+				<li>Each <strong>one</strong> is worth 100 points</li>
+				<li><strong>Three-of-a-kinds</strong> are scored as follows:</li>
+				<ul>
+					<li><strong>Three 1's</strong> is 1000 points</li>
+					<li><strong>Three 2's</strong> is 200 points</li>
+					<li><strong>Three 3's</strong> is 300 points</li>
+					<li><strong>Three 4's</strong> is 400 points</li>
+					<li><strong>Three 5's</strong> is 500 points</li>
+					<li><strong>Three 6's</strong> is 600 points</li>
+				</ul>
+				<li>A <strong>straight</strong> (1-2-3-4-5 or 2-3-4-5-6) is 1000 points</li>
+				<li>A <strong>five-of-a-kind</strong> is worth 1500 points</li>
+				<li>Multiple dice can score in a roll</li>
+			</ul>
+			<hr>
+			<h2>Play variations</h2>
+			<ul>
+				<li>If you do not want to play with a threshold to begin scoring, set the "minimum score" to 0 when creating a game.</li>
+				<li>By default, the winning score is 5,000 points. For a longer game, this is often changed to 10,000 or 20,000 points.</li>
+			</ul>
+			<hr>
+			<p><button id="h2p2home" style="width: auto; margin: auto;">Back to Home</button></p>
+		</div>
 		<div id="pastgames" class="hidden">
-			<h1>Schultz</h1>
+			<h1>Schultz &ndash; Past Games</h1>
 			<div class="roundtable">
 				<table>
 					<thead>

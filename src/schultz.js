@@ -16,6 +16,7 @@
 	let scoreToBeat = -1;
 	let endGameLast = -1;
 
+	// Dice things
 	//#region
 	
 	class Die {
@@ -56,7 +57,11 @@
 				}
 				updateScore();
 			} else if(this.value == 1){
-				tempscore += 100 * (this.held ? 1 : -1);
+				if(this.linked.length > 0){
+					tempscore += 1000 * (this.held ? 1 : -1);
+				} else {
+					tempscore += 100 * (this.held ? 1 : -1);
+				}
 				updateScore();
 			}
 			
@@ -208,10 +213,16 @@
 	//#endregion
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Back to home buttons
 	//#region
 
 	document.getElementById("newgame2home").onclick = () => {
 		document.getElementById("newgame").classList.add("hidden");
+		document.getElementById("start").classList.remove("hidden");
+	}
+
+	document.getElementById("h2p2home").onclick = () => {
+		document.getElementById("h2p").classList.add("hidden");
 		document.getElementById("start").classList.remove("hidden");
 	}
 
@@ -229,6 +240,7 @@
 	//#endregion
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Other button event listeners
 	//#region
 	
 	document.getElementById("new").onclick = () => {
@@ -248,11 +260,14 @@
 			alert("No save file!");
 			return;
 		}
-		//Load save file (does all)
+		//Load save file (also does screen transition)
 		loadGame();
 	}
 
-	// document.getElementById("h2pbutton").onclick = () => {}
+	document.getElementById("h2pbutton").onclick = () => {
+		document.getElementById("start").classList.add("hidden");
+		document.getElementById("h2p").classList.remove("hidden");
+	}
 
 	document.getElementById("pastbutton").onclick = () => {
 		document.getElementById("start").classList.add("hidden");
@@ -375,6 +390,7 @@
 	//#endregion
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// In-game functions
 	//#region
 	
 	async function rollDie(){
@@ -524,9 +540,21 @@
 			}
 			return;
 		}
+		//Look for all dice on same number
+		if(nums[1] == 5 || nums[2] == 5 || nums[3] == 5 || nums[4] == 5 || nums[5] == 5 || nums[6] == 5){
+			tempscore += 1500;
+			updateScore();
+			confetti();
+			for(let i = 0; i < 5; i++){
+				dice[i].toggleHold(true, true);
+				dice[i].canHold = false;
+			}
+			return;
+		}
 		//Look for triples
-		if(nums[2] >= 3 || nums[3] >= 3 || nums[4] >= 3 || nums[5] >= 3 || nums[6] >= 3){
+		if(nums[1] >= 3 || nums[2] >= 3 || nums[3] >= 3 || nums[4] >= 3 || nums[5] >= 3 || nums[6] >= 3){
 			let num;
+			if(nums[1] >= 3) num = 1;
 			if(nums[2] >= 3) num = 2;
 			if(nums[3] >= 3) num = 3;
 			if(nums[4] >= 3) num = 4;
@@ -754,6 +782,7 @@
 	//#endregion
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Downloading functions and event listeners
 	//#region
 	
 	function download(format, winner){
@@ -848,6 +877,7 @@
 				for(let j = 0; j < names.length; j++){
 					s += (scoreboard[j][i] || "") + (j !== names.length - 1 ? "," : "");
 				}
+				s += "\n";
 			}
 		} else {
 			return;
@@ -865,6 +895,7 @@
 	//#endregion
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// iOS cosmetic changes and save game states
 	//#region
 	
 	//Detect iOS Safari for slight CSS changes
@@ -1112,6 +1143,7 @@
 	//#endregion
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Particle and page resize functions
 	//#region
 	
 	function resize(){
