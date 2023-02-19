@@ -26,6 +26,6 @@
 # v0.3.0
   - Added home menu
   - Added the ability to save/load games
-    - This stems from a user feedback issue where
+    - This stems from a user feedback issue where players would accidentally reload pages on mobile devices by accidentally swiping up
   - Added the ability to replay games
   - Added minor CSS changes for iOS Safari due to how it counts viewport height
