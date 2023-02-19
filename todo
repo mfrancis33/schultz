@@ -4,17 +4,18 @@
 	[ ] TODO: figure out these things
 		[ ] Security?
 		[ ] Timeout prevention? (could use navigator.sendBeacon to send alive tick)
+			- Socket.io sometimes disconnects and reconnects as browser puts tabs to "sleep" to save resources
+			- Could keep "secret" between user and server
+				- Regenerate every keepalive tick for security?
 		[ ] What kind of DB? How much info do we store back-end?
-		[ ] Decide what language to use; currently debating Python (3.10.6)
-		[ ] socket.io? Or similar/custom websockets implementation?
+		[X] Decide what language to use; currently debating Python (3.10.6) or Node.js with Express
+		[X] socket.io? Or similar/custom websockets implementation?
 [ ] Settings menu
 	[ ] Move settings at bottom of new game to its own menu
+		[ ] Floating on top of everything else
 	[ ] Accessible from home menu or in-game
-	[ ] TODO: figure out these things
-		[ ] Make it appear on top of everything? (similar to #particles canvas)
-		[ ] Should there be new settings? Examples:
-			- Confetti could have settings to tone down how much confetti is produced
-			- I have a fireworks particle effect ready that could be a substitute if the user wanted
+	[ ] Confetti settings (maybe include fireworks as an option? laggier)
+	[ ] Sound settings (suggestion)
 [ ] Prompt user before reloading/leaving page if in game
 [ ] Decide if 5-in-a-row stays as 1500 or 1000
 	- We haven't made an official rule for it because nobody has ever gotten it, 1500 was something pulled from online

@@ -1,5 +1,6 @@
 (() => {
 	//Global variables
+	const socket = io.connect();
 	const names = [];
 	const scoreboard = [];
 	let minscore = 600;

@@ -134,7 +134,6 @@
 						<option value="7">7</option>
 						<option value="8">8</option>
 					</select></label></p>
-					<!--<p><label>How many are playing? <input type="number" min="2" max="8" step="1" value="4" placeholder="Player count" name="pcount" id="pcount" pattern="\d*" required></label></p>-->
 					<ol id="playercount">
 						<li><input type="text" placeholder="Player 1 name" name="name1" minlength="1" maxlength="32" required></li>
 						<li><input type="text" placeholder="Player 2 name" name="name2" minlength="1" maxlength="32" required></li>
@@ -202,6 +201,7 @@
 			<p><button id="downloadcsv">Download scoresheet as CSV</button></p>
 		</div>
 		<canvas id="particles"></canvas>
+		<script src="/socket.io/socket.io.js"></script>
 		<script src="schultz.js"></script>
 	</body>
 </html>
