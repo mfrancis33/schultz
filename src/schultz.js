@@ -1,5 +1,5 @@
 (() => {
-	//Global variables
+	// Global variables
 	const socket = io.connect();
 	const names = [];
 	const scoreboard = [];
@@ -245,23 +245,23 @@
 	//#region
 	
 	document.getElementById("new").onclick = () => {
-		//Check for saved game that may be deleted if continuing
+		// Check for saved game that may be deleted if continuing
 		if(saveGameExists()){
-			//Ask user if they wish to overwrite it
+			// Ask user if they wish to overwrite it
 			if(!confirm("Your save file will be overwritten! Are you sure you wish to continue?")) return;
 		}
-		//Change scenery
+		// Change scenery
 		document.getElementById("start").classList.add("hidden");
 		document.getElementById("newgame").classList.remove("hidden");
 	}
 
 	document.getElementById("continue").onclick = () => {
-		//Check for save file
+		// Check for save file
 		if(!saveGameExists()){
 			alert("No save file!");
 			return;
 		}
-		//Load save file (also does screen transition)
+		// Load save file (also does screen transition)
 		loadGame();
 	}
 
@@ -287,12 +287,12 @@
 
 		if(list.children.length > Number(this.value)){
 			while(list.children.length > Number(this.value)){
-				//Remove last child
+				// Remove last child
 				list.children[list.children.length - 1].remove();
 			}
 		} else {
 			while(list.children.length < Number(this.value)){
-				//Add new input
+				// Add new input
 				let num = list.children.length + 1;
 				let elem = document.createElement("li");
 				let inp = elem.appendChild(document.createElement("input"));
@@ -322,7 +322,7 @@
 		ev.preventDefault();
 		const form = document.forms.setup;
 
-		//Reset variables
+		// Reset variables
 		if(round > 0){
 			tempscore = 0;
 			round = 0;
@@ -336,12 +336,12 @@
 			endGame = false;
 		}
 		
-		//Extract names
-		//First two are required
+		// Extract names
+		// First two are required
 		names.splice(0, names.length);
 		scoreboard.splice(0, names.length);
 		names.push(form.name1.value);
-		//After that they are optional, only add if we can
+		// After that they are optional, only add if we can
 		if(form.name2) names.push(form.name2.value);
 		if(form.name3) names.push(form.name3.value);
 		if(form.name4) names.push(form.name4.value);
@@ -350,7 +350,7 @@
 		if(form.name7) names.push(form.name7.value);
 		if(form.name8) names.push(form.name8.value);
 		
-		//Set up scoreboard too (front and back ends)
+		// Set up scoreboard too (front and back ends)
 		const sbElem = document.getElementById("scoreboard");
 		const sbHead = sbElem.querySelector("thead tr");
 		const sbBody = sbElem.querySelector("tbody");
@@ -372,22 +372,22 @@
 		}
 		document.getElementById("turn").innerText = names[0];
 		
-		//Set up min/max scores
+		// Set up min/max scores
 		minscore = Number(form.min.value);
 		maxscore = Number(form.max.value);
 		doEndGame = form.endgame.checked;
 		
-		//Misc settings
+		// Misc settings
 		randSpread = form.spread.checked;
 		document.body.classList.toggle("nocol", !form.colors.checked);
 		document.getElementById("particles").classList.toggle("hidden", !form.confetti.checked);
 		
-		//Switch screen
+		// Switch screen
 		document.getElementById("newgame").classList.add("hidden");
 		document.getElementById("game").classList.remove("hidden");
 		document.body.classList.add("p1");
 		
-		//Can play now
+		// Can play now
 		canPlay = true;
 		resize();
 	}
@@ -414,7 +414,7 @@
 		
 		roll++;
 		
-		//Get dice
+		// Get dice
 		const d1 = dice[0];
 		const d2 = dice[1];
 		const d3 = dice[2];
@@ -433,7 +433,7 @@
 		d4.canHold = true;
 		d5.canHold = true;
 		
-		//Reset if all 5 are held
+		// Reset if all 5 are held
 		if(d1.held && d2.held && d3.held && d4.held && d5.held){
 			d1.reset();
 			d2.reset();
@@ -442,7 +442,7 @@
 			d5.reset();
 		}
 		
-		//Prepare
+		// Prepare
 		d1.rollPrepare();
 		d2.rollPrepare();
 		d3.rollPrepare();
@@ -457,7 +457,7 @@
 		d4.el.classList.add("rolling");
 		d5.el.classList.add("rolling");
 		
-		//Now we figure out where to position them so they don't overlap
+		// Now we figure out where to position them so they don't overlap
 		const b = document.getElementById("board").getBoundingClientRect();
 		if(randSpread){
 			const h = d1.el.width * Math.sqrt(2);
@@ -469,7 +469,7 @@
 				
 				do {
 					distanced = true;
-					//Get random x and y
+					// Get random x and y
 					x = Math.round(Math.random() * (b.width - h));
 					y = Math.round(Math.random() * (b.height - h));
 					
@@ -498,32 +498,32 @@
 			}
 		}
 		
-		//Wait 750ms
+		// Wait 750ms
 		await new Promise(resolve => setTimeout(resolve, 750));
 		
-		//We no longer need smooth transitions
+		// We no longer need smooth transitions
 		d1.el.classList.remove("rolling");
 		d2.el.classList.remove("rolling");
 		d3.el.classList.remove("rolling");
 		d4.el.classList.remove("rolling");
 		d5.el.classList.remove("rolling");
 		
-		//Determine points
+		// Determine points
 		determinePoints();
 		
-		//We can play again
+		// We can play again
 		canPlay = true;
 	}
 	
 	async function determinePoints(){
-		//Get dice
+		// Get dice
 		const d1 = dice[0];
 		const d2 = dice[1];
 		const d3 = dice[2];
 		const d4 = dice[3];
 		const d5 = dice[4];
 		
-		//Figure out values of not held dice
+		// Figure out values of not held dice
 		let nums = {
 			1: 0,
 			2: 0,
@@ -539,8 +539,8 @@
 		if(!d4.held) nums[d4.value]++;
 		if(!d5.held) nums[d5.value]++;
 		
-		//Look for straights
-		//They will always have a 2, 3, 4, and 5; we just need to look for 1 or 6
+		// Look for straights
+		// They will always have a 2, 3, 4, and 5; we just need to look for 1 or 6
 		if((nums[1] == 1 || nums[6] == 1) && nums[2] == 1 && nums[3] == 1 && nums[4] == 1 && nums[5] == 1){
 			tempscore += 1000;
 			updateScore();
@@ -551,7 +551,7 @@
 			}
 			return;
 		}
-		//Look for all dice on same number
+		// Look for all dice on same number
 		if(nums[1] == 5 || nums[2] == 5 || nums[3] == 5 || nums[4] == 5 || nums[5] == 5 || nums[6] == 5){
 			tempscore += 1500;
 			updateScore();
@@ -562,7 +562,7 @@
 			}
 			return;
 		}
-		//Look for triples
+		// Look for triples
 		if(nums[1] >= 3 || nums[2] >= 3 || nums[3] >= 3 || nums[4] >= 3 || nums[5] >= 3 || nums[6] >= 3){
 			let num;
 			if(nums[1] >= 3) num = 1;
@@ -586,8 +586,8 @@
 			}
 			linked[0].toggleHold(true);
 		}
-		//Determine if we're out of luck
-		//We aren't if we got a triple, therefore this is an else so we don't have to check again
+		// Determine if we're out of luck
+		// We aren't if we got a triple, therefore this is an else so we don't have to check again
 		else if(nums[1] == 0 && nums[5] == 0){
 			tempscore = -50;
 			updateScore();
@@ -605,7 +605,7 @@
 			return;
 		}
 		
-		//Hold the rest of the ones and fives and mark the others as unable to hold
+		// Hold the rest of the ones and fives and mark the others as unable to hold
 		for(let i = 0; i < 5; i++){
 			if(!dice[i].held && (dice[i].value == 1 || dice[i].value == 5)){
 				dice[i].toggleHold(true);
@@ -622,15 +622,15 @@
 	document.getElementById("stay").onclick = () => {
 		if(!canPlay) return;
 		
-		//Can we actually stay?
+		// Can we actually stay?
 		if(
-			//Hasn't scored yet or lost
+			// Hasn't scored yet or lost
 			tempscore <= 0
 			||
-			//Hasn't scored at all
+			// Hasn't scored at all
 			((round == 0 || typeof scoreboard[turn][round - 1] !== "number") && tempscore < minscore)
 			||
-			//Endgame have we beat score
+			// Endgame have we beat score
 			(endGame && scoreboard[turn][round - 1] + tempscore <= scoreToBeat)
 		){
 			document.getElementById("stay").style.animation = "button-no 0.4s linear normal";
@@ -649,7 +649,7 @@
 		if(!canPlay) return;
 		canPlay = false;
 		
-		//Update front-end scoreboard
+		// Update front-end scoreboard
 		const sbElem = document.getElementById("scoreboard");
 		const sbHead = sbElem.querySelector("thead tr");
 		const sbBody = sbElem.querySelector("tbody");
@@ -657,28 +657,28 @@
 		sbBody.children[round].children[turn].classList.remove("active");
 		document.body.classList.remove("p" + (turn + 1));
 		
-		//Update back end scoreboard
-		//Determine if we can count player's score
+		// Update back end scoreboard
+		// Determine if we can count player's score
 		if(round == 0 || isNaN(parseInt(scoreboard[turn][round - 1], 10))){
-			//Player is not on board, determine if they can be now
+			// Player is not on board, determine if they can be now
 			if(tempscore >= minscore){
-				//Yes
+				// Yes
 				scoreboard[turn][round] = tempscore;
 			} else {
-				//No
+				// No
 				scoreboard[turn][round] = "\u2014";
 			}
 		} else {
-			//Add tempscore to last
+			// Add tempscore to last
 			scoreboard[turn][round] = (scoreboard[turn][round - 1] || 0) + tempscore;
 		}
 		
-		//Update score on board
+		// Update score on board
 		sbBody.children[round].children[turn].innerText = scoreboard[turn][round];
 			
-		//Winning and end game checks
+		// Winning and end game checks
 		if(endGame){
-			//Check for end game win
+			// Check for end game win
 			if(scoreboard[turn][round] > scoreToBeat){
 				confetti();
 				scoreToBeat = scoreboard[turn][round];
@@ -686,27 +686,27 @@
 				sbBody.querySelector(".beat").classList.remove("beat");
 				sbBody.children[round].children[turn].classList.add("beat");
 			}
-			//Check for end of game
+			// Check for end of game
 			else if(turn == endGameLast){
-				//End of game
+				// End of game
 				turn++;
 				turn %= names.length;
 				endOfGame();
 				return;
 			}
 		} else {
-			//Check for initial win
+			// Check for initial win
 			if(scoreboard[turn][round] >= maxscore){
 				if(doEndGame){
 					confetti();
-					//Initiate the final battle of all battles!!!!!!!!
+					// Initiate the final battle of all battles!!!!!!!!
 					endGame = true;
 					scoreToBeat = scoreboard[turn][round];
 					endGameLast = turn == 0 ? names.length - 1 : turn - 1;
-					//Also add class thingy
+					// Also add class thingy
 					sbBody.children[round].children[turn].classList.add("beat");
 				} else {
-					//End of game
+					// End of game
 					endOfGame();
 					return;
 				}
@@ -714,20 +714,20 @@
 		}
 		
 		
-		//Update turn
+		// Update turn
 		turn++;
-		if(turn >= names.length){ //shouldn't ever be > but just for safety
+		if(turn >= names.length){ // shouldn't ever be > but just for safety
 			turn = 0;
 			round++;
-			//for(let i = 0; i < scoreboard.length; i++){
+			// for(let i = 0; i < scoreboard.length; i++){
 			//	scoreboard[i].push(null);
-			//}
+			// }
 			let tr = sbBody.appendChild(document.createElement("tr"));
 			for(let i = 0; i < names.length; i++){
 				tr.appendChild(document.createElement("td")).innerText = "\xa0";
 			}
 		}
-		//Front-end update turn
+		// Front-end update turn
 		sbHead.children[turn].classList.add("active");
 		sbBody.children[round].children[turn].classList.add("active");
 		sbBody.children[round].children[turn].scrollIntoView({block: "nearest"});
@@ -736,35 +736,35 @@
 		
 		canPlay = true;
 		
-		//Score
+		// Score
 		tempscore = 0;
 		updateScore();
 
-		//Update save file
+		// Update save file
 		saveGame();
 	}
 	
 	async function endOfGame(){
-		//Archive game
+		// Archive game
 		archiveGame();
 		
-		//Readd color theme
+		// Readd color theme
 		document.body.classList.add("p" + (turn + 1));
 
-		//Confetti and update screen
+		// Confetti and update screen
 		confetti();
 		tempscore = 0;
 		updateScore();
 		document.getElementById("turn").innerText = names[turn];
 
-		//Wait 2 seconds for dramatic effect
+		// Wait 2 seconds for dramatic effect
 		// await new Promise(resolve => setTimeout(resolve, 2000));
 		
-		//Switch screen
+		// Switch screen
 		document.getElementById("game").classList.add("hidden");
 		document.getElementById("end").classList.remove("hidden");
 		
-		//Sort scores
+		// Sort scores
 		let scores = [];
 		
 		for(let i = 0; i < names.length; i++){
@@ -775,7 +775,7 @@
 		}
 		scores.sort((a, b) => (typeof b.score == "number" ? b.score : 0) - (typeof a.score == "number" ? a.score : 0));
 
-		//Add win order rows
+		// Add win order rows
 		document.getElementById("order").querySelector("tbody").innerHTML = "";
 		
 		for(let i = 0; i < scores.length; i++){
@@ -801,43 +801,43 @@
 		const d = new Date();
 		
 		if(format == "txt"){
-			//Figure out width
+			// Figure out width
 			let w = 27 + minscore.toString().length + maxscore.toString().length;
-			const wDefault = w;//default width for reference
-			//Gets length of biggest number in case names are too short
+			const wDefault = w;// default width for reference
+			// Gets length of biggest number in case names are too short
 			const biggestNumLen = (() => {let m = 0; for(let i = 0; i < names.length; i++) m = Math.max(m, ...scoreboard[i]); return m.toString().length;})();
 			let col = (() => {
-				//Default max value is length of biggest number
+				// Default max value is length of biggest number
 				let m = Math.max(minscore.toString().length, biggestNumLen);
-				//Compare max value to length of everyone's name to get biggest width
+				// Compare max value to length of everyone's name to get biggest width
 				for(let i = 0; i < names.length; i++){
 					m = Math.max(m, names[i].length);
 				}
 				
-				//Add m (max length of name) with spaces around it times the number of names plus bars between
+				// Add m (max length of name) with spaces around it times the number of names plus bars between
 				return m;
 			})();
 			w = Math.max(w, (col + 2) * names.length + (names.length - 1));
-			//Check if the columns are too small (we'll need to scale them)
+			// Check if the columns are too small (we'll need to scale them)
 			if(w === wDefault){
-				//Set column width
+				// Set column width
 				col = Math.ceil((w - (names.length - 1) - (names.length * 2)) / names.length);
-				//Scale total width to fit columns
+				// Scale total width to fit columns
 				w = (col + 2) * names.length + (names.length - 1);
 			}
 			
-			//Horizontal bar
+			// Horizontal bar
 			s += "-" + (() => {let a = ""; for(let i = 0; i < w; i++) a += "-"; return a;})() + "-\r\n";
 			
-			//Header
+			// Header
 			s += "|SCHULTZ "
 				+ (() => {let a = ""; for(let i = 0; i < w - 24 - minscore.toString().length - maxscore.toString().length; i++) a += "="; return a;})()
 				+ " Start: " + minscore + " | End: " + maxscore + "|\r\n";
 			
-			//Another horizontal bar
+			// Another horizontal bar
 			s += "|" + (() => {let a = ""; for(let i = 0; i < w; i++) a += "-"; return a;})() + "|\r\n";
 			
-			//Names
+			// Names
 			for(let i = 0; i < names.length; i++){
 				s += "|";
 				const left = Math.floor((col - names[i].length) / 2) - (i == winner ? 1 : 0);
@@ -852,14 +852,14 @@
 			}
 			s += "|\r\n";
 			
-			//Horizontal bars below names
+			// Horizontal bars below names
 			for(let i = 0; i < names.length; i++){
 				s += "|";
 				s += (() => {let a = ""; for(let j = 0; j < col + 2; j++) a += "-"; return a;})()
 			}
 			s += "|\r\n";
 			
-			//Scores
+			// Scores
 			const rows = (() => {let m = 0; for(let j = 0; j < names.length; j++) m = Math.max(m, scoreboard[j].length); return m;})();
 			for(let i = 0; i < rows; i++){
 				for(let j = 0; j < names.length; j++){
@@ -876,10 +876,10 @@
 				s += "|\r\n";
 			}
 			
-			//Another horizontal bar, would you believe it
+			// Another horizontal bar, would you believe it
 			s += "-" + (() => {let a = ""; for(let i = 0; i < w; i++) a += "-"; return a;})() + "-\r\n";
 			
-			//Footer
+			// Footer
 			s += d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
 		} else if(format == "csv"){
 			s += names.join(",");
@@ -909,9 +909,9 @@
 	// iOS cosmetic changes and save game states
 	//#region
 	
-	//Detect iOS Safari for slight CSS changes
+	// Detect iOS Safari for slight CSS changes
 	function iOS() {
-		//https://stackoverflow.com/a/29696509
+		// https://stackoverflow.com/a/29696509
 		let ua = window.navigator.userAgent;
 		let iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
 		let webkit = !!ua.match(/WebKit/i);
@@ -961,15 +961,15 @@
 
 	function loadGame(){
 		if(!saveGameExists()){
-			//Throw a fit if no save file (didn't check previously)
+			// Throw a fit if no save file (didn't check previously)
 			throw "No save file!";
 		}
 
 		try {
-			//Get save file
+			// Get save file
 			let saveFile = JSON.parse(localStorage.getItem("save"));
 
-			//Set variables and such
+			// Set variables and such
 			names.splice(0, names.length);
 			for(let name of saveFile.names){
 				names.push(name);
@@ -984,17 +984,17 @@
 			endGame = saveFile.endGame.active;
 			scoreToBeat = saveFile.endGame.scoreToBeat;
 			endGameLast = saveFile.endGame.endGameLast;
-			//Yes this is entirely necessary to get the round variable
+			// Yes this is entirely necessary to get the round variable
 			const rows = (() => {let m = 0; for(let i = 0; i < names.length; i++) m = Math.max(m, scoreboard[i].length); return m;})();
 			round = rows - 1;
 			
-			//Set settings
+			// Set settings
 			doEndGame = saveFile.settings.doEndGame;
 			randSpread = saveFile.settings.doRandomSpread;
 			document.body.classList.toggle("nocol", !saveFile.settings.doPlayerColors);
 			canv.classList.toggle("hidden", !saveFile.settings.doConfetti);
 
-			//Do scoreboard schenanigans
+			// Do scoreboard schenanigans
 			const sbElem = document.getElementById("scoreboard");
 			const sbHead = sbElem.querySelector("thead tr");
 			const sbBody = sbElem.querySelector("tbody");
@@ -1013,20 +1013,20 @@
 				}
 			}
 
-			//End game thingy
+			// End game thingy
 			if(endGame){
 				const p = (endGameLast + 1) % names.length;
 				sbBody.children[scoreboard[p].length - 1].children[p].classList.add("beat");
 			}
 
-			//Set other things
+			// Set other things
 			sbHead.children[turn].classList.add("active");
 			sbBody.children[round].children[turn].classList.add("active");
 			sbBody.children[round].children[turn].scrollIntoView({block: "nearest"});
 			document.getElementById("turn").innerText = names[turn];
 			document.body.classList.add("p" + (turn + 1));
 
-			//Switch screen and enable playing
+			// Switch screen and enable playing
 			document.getElementById("start").classList.add("hidden");
 			document.getElementById("game").classList.remove("hidden");
 			
@@ -1062,16 +1062,16 @@
 		try {
 			const archives = JSON.parse(localStorage.getItem("past") || "[]").sort((a, b) => (a.dateRaw || 0) - (b.dateRaw || 0));
 			
-			//Add archive summaries to list
+			// Add archive summaries to list
 			for(let i = 0; i < archives.length; i++){
-				//Get archive
+				// Get archive
 				const archive = archives[i];
-				//Create a new row and put basic information from archive
+				// Create a new row and put basic information from archive
 				const tr = list.appendChild(document.createElement("tr"));
 				tr.appendChild(document.createElement("th")).innerText = archive.dateString;
 				tr.appendChild(document.createElement("td")).innerText = archive.names[archive.winner];
 				tr.appendChild(document.createElement("td")).innerText = archive.scoreboard[archive.winner][archive.scoreboard[archive.winner].length - 1];
-				//Put options
+				// Put options
 				const options = tr.appendChild(document.createElement("td"));
 				const viewButton = options.appendChild(document.createElement("button"));
 				viewButton.innerText = "View";
@@ -1110,14 +1110,14 @@
 	
 	function getArchive(num){
 		try {
-			//Get archive
+			// Get archive
 			const archive = JSON.parse(localStorage.getItem("past") || "[]").sort((a, b) => (a.dateRaw || 0) - (b.dateRaw || 0))[num];
 			const sb = archive.scoreboard;
 			document.getElementById("pastwinner").innerText = archive.names[archive.winner];
 			document.getElementById("pastscore").innerText = sb[archive.winner][sb[archive.winner].length - 1];
 			document.body.classList.add("p" + (archive.winner + 1));
 			
-			//Grab scoreboard elements and clear their contents
+			// Grab scoreboard elements and clear their contents
 			const sbElem = document.getElementById("pastscoreboard");
 			const sbHead = sbElem.querySelector("thead tr");
 			const sbBody = sbElem.querySelector("tbody");
@@ -1125,7 +1125,7 @@
 			sbHead.innerHTML = "";
 			sbBody.innerHTML = "";
 			
-			//Add scoreboard contents
+			// Add scoreboard contents
 			for(let i = 0; i < archive.names.length; i++){
 				const th = sbHead.appendChild(document.createElement("th"));
 				th.innerText = archive.names[i];
@@ -1158,7 +1158,7 @@
 	//#region
 	
 	function resize(){
-		//Resize canvas to fit screen size
+		// Resize canvas to fit screen size
 		const d = document.body.getBoundingClientRect();
 		const canv = document.getElementById("particles");
 		const oldW = canv.width;
@@ -1166,7 +1166,7 @@
 		canv.width = d.width;
 		canv.height = d.height;
 		
-		//Resize dice as well
+		// Resize dice as well
 		const b = document.getElementById("board").getBoundingClientRect();
 		const boardMin = Math.min(b.width, b.height);
 		for(let i = 0; i < 5; i++){
@@ -1186,7 +1186,7 @@
 	window.onresize = resize;
 	resize();
 	
-	//HSL to Hexadecimal
+	// HSL to Hexadecimal
 	function hslToHex(h, s, l) {
 		l /= 100;
 		const a = s * Math.min(l, 1 - l) / 100;
@@ -1198,7 +1198,7 @@
 		return "#" + f(0) + f(8) + f(4);
 	}
 	
-	//Set up some variables for particles
+	// Set up some variables for particles
 	const canv = document.getElementById("particles");
 	const ctx = canv.getContext("2d");
 	const particles = [];
@@ -1207,103 +1207,103 @@
 	function confetti(){
 		if(canv.classList.contains("hidden")) return;
 		
-		//Set up some important variables and classes
-		const PXVSF = 0.3; //particle x-velocity scaling factor
+		// Set up some important variables and classes
+		const PXVSF = 0.3; // particle x-velocity scaling factor
 		
 		class ConfettiParticle {
-			d = 5; //default minimum side length for rectangles
+			d = 5; // default minimum side length for rectangles
 			
 			constructor(x, y, a, xv, yv, av, r, s, c){
-				//Positions and rotations
+				// Positions and rotations
 				this.x = x;
 				this.y = y;
-				this.a = a; //angle
-				//Velocities
+				this.a = a; // angle
+				// Velocities
 				this.xv = xv;
 				this.yv = yv;
 				this.av = av;
-				//Visuals
-				this.r = r; //size ratio
-				this.s = s; //size scaling
-				this.c = c; //color
+				// Visuals
+				this.r = r; // size ratio
+				this.s = s; // size scaling
+				this.c = c; // color
 			}
 			
 			tick(delta){
-				//Update positions
+				// Update positions
 				this.x += this.xv * delta;
 				this.y += this.yv * delta;
 				this.a += this.av * delta;
-				//Update xv (other velocities stay the same throughout)
+				// Update xv (other velocities stay the same throughout)
 				this.xv *= PXVSF ** delta;
-				//Return whether we want to keep this
+				// Return whether we want to keep this
 				return this.y < canv.height;
 			}
 			
 			draw(){
-				//Save canvas things for later
+				// Save canvas things for later
 				ctx.save();
-				//Transformations
+				// Transformations
 				ctx.translate(this.x, this.y);
 				ctx.scale(this.s, this.s);
 				ctx.rotate(this.a);
-				//Create rectangle
+				// Create rectangle
 				ctx.fillStyle = this.c;
 				let w = this.r > 1 ? this.d * this.r : this.d;
 				let h = this.r < 1 ? this.d * (1/this.r) : this.d;
 				ctx.fillRect(-w/2, -h/2, w, h);
-				//Restore canvas to as it was before
+				// Restore canvas to as it was before
 				ctx.restore();
 			}
 		}
 		
-		const PMXV = -canv.width / Math.log(PXVSF); //particle max x-velocity, figured out using calculus
+		const PMXV = -canv.width / Math.log(PXVSF); // particle max x-velocity, figured out using calculus
 		
-		//Create the particle instances
-		for(let i = 0; i < canv.width / 2; i++){ //canv.width / 2 is the number of confetti particles created
+		// Create the particle instances
+		for(let i = 0; i < canv.width / 2; i++){ // canv.width / 2 is the number of confetti particles created
 			particles.push(new ConfettiParticle(
-				canv.width / 2,                                    //x, set to middle of screen
-				Math.random() * -50,                               //y, set to top of screen
-				Math.random() * Math.PI,                           //angle, between 0 and 180 deg (looks same after)
-				Math.random() * PMXV * 2 - PMXV,                   //x velocity, figures out velocity needed to travel to one side of screen
-				Math.random() * canv.height / 2 + canv.height / 4, //y velocity with speeds relative to actual height
-				Math.random() * Math.PI * 2 - Math.PI,             //angle velocity, between -180 and 180 deg/sec
-				Math.random() * 2 + 0.25,                          //size ratio, between 0.5 and 2, which is self-similar
-				Math.random() * 1.5 + 0.5,                         //size scaling, between 0.5 and 2
-				(() => hslToHex(Math.random() * 360, 100, 75))()   //color
+				canv.width / 2,                                    // x, set to middle of screen
+				Math.random() * -50,                               // y, set to top of screen
+				Math.random() * Math.PI,                           // angle, between 0 and 180 deg (looks same after)
+				Math.random() * PMXV * 2 - PMXV,                   // x velocity, figures out velocity needed to travel to one side of screen
+				Math.random() * canv.height / 2 + canv.height / 4, // y velocity with speeds relative to actual height
+				Math.random() * Math.PI * 2 - Math.PI,             // angle velocity, between -180 and 180 deg/sec
+				Math.random() * 2 + 0.25,                          // size ratio, between 0.5 and 2, which is self-similar
+				Math.random() * 1.5 + 0.5,                         // size scaling, between 0.5 and 2
+				(() => hslToHex(Math.random() * 360, 100, 75))()   // color
 			));
 		}
 		
-		//If there's not already an instance of us drawing particles, start drawing things
+		// If there's not already an instance of us drawing particles, start drawing things
 		if(!particleDrawing){
 			window.requestAnimationFrame(draw);
 			particleDrawing = true;
 		}
 	}
 	
-	//Drawing function
-	let lt = 0; //last t
+	// Drawing function
+	let lt = 0; // last t
 	function draw(t){
 		if(lt === 0) lt = t;
-		//For the first frame, delta will be 0
+		// For the first frame, delta will be 0
 		const delta = (t - lt) / 1000;
 		lt = t;
-		//Clear previous
+		// Clear previous
 		ctx.clearRect(0, 0, canv.width, canv.height);
-		//Draw
+		// Draw
 		let copy = [...particles];
 		for(let i = copy.length - 1; i >= 0; i--){
-			//Draw particles in reverse order so we don't skip any if we delete them (if they reach the bottom)
+			// Draw particles in reverse order so we don't skip any if we delete them (if they reach the bottom)
 			let p = copy[i];
 			if(p.tick(delta))
 				p.draw();
 			else
 				particles.splice(i, 1);
 		}
-		//See if we need to draw again
+		// See if we need to draw again
 		if(particles.length > 0){
 			window.requestAnimationFrame(draw);
 		} else {
-			//If we don't, signal that we can create a new confetti loop (since this will now be dead)
+			// If we don't, signal that we can create a new confetti loop (since this will now be dead)
 			particleDrawing = false;
 			lt = 0;
 		}
