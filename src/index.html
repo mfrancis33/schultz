@@ -16,8 +16,8 @@
 			<p>Please turn on JavaScript in your browser or upgrade to one that supports it.</p>
 		</noscript>
 		<div id="start">
-			<h1>Schultz (Beta v0.3.3)</h1>
-			<p><button id="new">New Game</button></p>
+			<h1>Schultz (Beta v0.4.0)</h1>
+			<p><button id="new">Create Game</button></p>
 			<p><button id="continue">Continue Game</button></p>
 			<hr>
 			<p><button id="h2pbutton">How to Play</button></p>
@@ -115,7 +115,7 @@
 		<div id="newgame" class="hidden">
 			<h1>Schultz</h1>
 			<p><button id="newgame2home">Back to Home</button></p>
-			<form id="setup">
+			<form id="setup" class="online">
 				<fieldset>
 					<legend>Score requirements</legend>
 					<p><label>On the board at: <input type="number" min="0" value="600" step="50" placeholder="Score to get on" name="min" required></label></p>
@@ -123,7 +123,29 @@
 					<p><label><input type="checkbox" name="endgame" checked> Enable end game (one chance to beat winner's score)</label></p>
 				</fieldset>
 				<fieldset>
-					<legend>Player count</legend>
+					<legend>Mode</legend>
+					<p><select name="mode" id="modesel" required>
+						<option value="online" selected>Online</option>
+						<option value="offline">This Device</option>
+					</select></p>
+				</fieldset>
+				<fieldset class="online">
+					<legend>Online game</legend>
+					<p><label>Room name (no whitespace): <input type="text" name="roomname" pattern="\S{3,64}" minlength="3" maxlength="64" required></label></p>
+					<p><label>Password (optional): <input type="text" name="password"></label></p>
+					<p><label>Max players: <select name="maxpcount" required>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8" selected>8</option>
+					</select></label></p>
+					<p><label>Your name: <input type="text" name="name"></label></p>
+				</fieldset>
+				<fieldset class="offline">
+					<legend>Offline game</legend>
 					<p><label>How many are playing? <select name="pcount" id="pcount" required>
 						<option value="1">1</option>
 						<option value="2">2</option>
@@ -140,12 +162,6 @@
 						<li><input type="text" placeholder="Player 3 name" name="name3" minlength="1" maxlength="32" required></li>
 						<li><input type="text" placeholder="Player 4 name" name="name4" minlength="1" maxlength="32" required></li>
 					</ol>
-				</fieldset>
-				<fieldset>
-					<legend>Miscellaneous settings</legend>
-					<p><label><input type="checkbox" checked name="spread"> Enable random spread of dice</label></p>
-					<p><label><input type="checkbox" checked name="colors"> Enable player colors</label></p>
-					<p><label><input type="checkbox" checked name="confetti"> Enable confetti</label></p>
 				</fieldset>
 				<p><input type="submit" value="Play!"></p>
 			</form>
@@ -199,6 +215,19 @@
 			<hr>
 			<p><button id="downloadtxt">Download scoresheet as TXT</button></p>
 			<p><button id="downloadcsv">Download scoresheet as CSV</button></p>
+		</div>
+		<div id="settings-wrapper" class="hidden">
+			<form id="settings">
+				<h2>Settings</h2>
+				<p><label><input type="checkbox" checked name="spread"> Enable random spread of dice</label></p>
+				<p><label><input type="checkbox" checked name="colors"> Enable player colors</label></p>
+				<p><label>Confetti: <select name="confetti">
+					<option value="full">Full</option>
+					<option value="reduced">Reduced</option>
+					<option value="none">None</option>
+				</select></label></p>
+				<p><input type="submit" value="Save"></p>
+			</form>
 		</div>
 		<canvas id="particles"></canvas>
 		<script src="/socket.io/socket.io.js"></script>

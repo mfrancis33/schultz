@@ -241,7 +241,7 @@
 	//#endregion
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Other button event listeners
+	// Other event listeners
 	//#region
 	
 	document.getElementById("new").onclick = () => {
@@ -282,17 +282,16 @@
 		document.body.classList.remove("p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8");
 	}
 	
-	document.getElementById("pcount").onchange = () => {
-		const self = document.getElementById("pcount");
-		let list = document.getElementById("playercount");
+	document.getElementById("pcount").onchange = function() {
+		const list = document.getElementById("playercount");
 
-		if(list.children.length > Number(self.value)){
-			while(list.children.length > Number(self.value)){
+		if(list.children.length > Number(this.value)){
+			while(list.children.length > Number(this.value)){
 				//Remove last child
 				list.children[list.children.length - 1].remove();
 			}
 		} else {
-			while(list.children.length < Number(self.value)){
+			while(list.children.length < Number(this.value)){
 				//Add new input
 				let num = list.children.length + 1;
 				let elem = document.createElement("li");
@@ -305,6 +304,17 @@
 				inp.required = true;
 				list.appendChild(elem);
 			}					
+		}
+	}
+
+	document.getElementById("modesel").onchange = function() {
+		const form = document.getElementById("setup");
+		if(this.value == "online") {
+			form.classList.remove("offline");
+			form.classList.add("online");
+		} else {
+			form.classList.remove("online");
+			form.classList.add("offline");
 		}
 	}
 	

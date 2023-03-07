@@ -1,17 +1,25 @@
 [ ] Online games
-	[ ] No longer simple files: create server w/ database
-	[ ] Update menu (device/online)
-	[ ] TODO: figure out these things
-		[ ] Security?
-		[ ] Timeout prevention? (could use navigator.sendBeacon to send alive tick)
-			- Socket.io sometimes disconnects and reconnects as browser puts tabs to "sleep" to save resources
-			- Could keep "secret" between user and server
-				- Regenerate every keepalive tick for security?
-		[ ] What kind of DB? How much info do we store back-end?
-		[X] Decide what language to use; currently debating Python (3.10.6) or Node.js with Express
-		[X] socket.io? Or similar/custom websockets implementation?
+	[ ] No longer simple files: create server
+	[X] Update menu (device/online)
+	[ ] Add socket.io functionality
+		[ ] Joining games
+			- Room names and passwords
+			- Player names
+		[ ] Basic playable state
+			- Can roll dice
+			- Can score dice
+			- Can win
+			- Can end game
+		[ ] Disconnection avoidance (because WebSocket connections randomly flicker)
+			- Probably keep "secret" between client and server, if same secret then same person
+			- If player doesn't respond after 1-2 minutes, kick them
+		[ ] Game storage
+			- Games are stored in-memory since they are temporary
+			- Game room destroyed when game ends
+			- Game room destroyed after XX minutes of inactivity
+		[ ] Chat functionality? (probably won't do this)
 [ ] Settings menu
-	[ ] Move settings at bottom of new game to its own menu
+	[X] Move settings at bottom of new game to its own menu
 		[ ] Floating on top of everything else
 	[ ] Accessible from home menu or in-game
 	[ ] Confetti settings (maybe include fireworks as an option? laggier)
@@ -19,3 +27,6 @@
 [ ] Prompt user before reloading/leaving page if in game
 [ ] Decide if 5-in-a-row stays as 1500 or 1000
 	- We haven't made an official rule for it because nobody has ever gotten it, 1500 was something pulled from online
+
+NOTE: I may end up creating a separate repository with online functionality because this was never designed for online
+	- Could also play around with React or some other JS libraries to make the code less static and more reusable

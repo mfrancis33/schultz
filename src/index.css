@@ -163,6 +163,13 @@ td.beat {
 	max-width: 75vw;
 }
 
+#setup.online .offline {
+	display: none;
+}
+#setup.offline .online {
+	display: none;
+}
+
 #game {
 	display: grid;
 	width: 100%;
